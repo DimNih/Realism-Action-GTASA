@@ -1,0 +1,11 @@
+obj/
+libs/
+*.o
+*.d
+*.so
+*.log
+.vscode/
+.idea/
+.vs/
+Thumbs.db
+.DS_Store
