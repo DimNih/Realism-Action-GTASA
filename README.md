@@ -26,5 +26,3 @@ A native Android Mod Loader (AML) plugin for **GTA: San Andreas Android**. It ad
 1. Build the plugin or obtain the matching ARM64 `.so` release.
 2. Copy `libBetaRealismAction.so` into the AML mods directory used by your GTA SA installation.
 3. Launch the game.
-
-No custom IFP, DFF, TXD, or `animgrp.dat` file is required for the current helmet feature.
