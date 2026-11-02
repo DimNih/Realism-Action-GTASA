@@ -104,6 +104,9 @@ inline bool CommandByID(uint16_t opcode, ArgTypes... args)
     memcpy(OpcodeCaller::g_ScriptBuffer, &opcode, 2);
     OpcodeCaller::g_nBufferPos = 2;
     OpcodeCaller::g_nVarsCount = 0;
+    // OpcodeCaller reuses one CRunningScript for every call. Restart its
+    // instruction pointer so each command begins at the new buffer contents.
+    OpcodeCaller::g_Script.m_pBaseIP = OpcodeCaller::g_Script.m_pCurrentIP = OpcodeCaller::g_ScriptBuffer;
     PushVars(args...);
 
     OpcodeCaller::g_Script.ProcessOneCommand();
@@ -128,6 +131,9 @@ inline bool Command()
 {
     const uint16_t opcode = CommandID;
     memcpy(OpcodeCaller::g_ScriptBuffer, &opcode, 2);
+    OpcodeCaller::g_nBufferPos = 2;
+    OpcodeCaller::g_nVarsCount = 0;
+    OpcodeCaller::g_Script.m_pBaseIP = OpcodeCaller::g_Script.m_pCurrentIP = OpcodeCaller::g_ScriptBuffer;
     OpcodeCaller::g_Script.ProcessOneCommand();
     return OpcodeCaller::g_Script.m_bCondResult;
 }
